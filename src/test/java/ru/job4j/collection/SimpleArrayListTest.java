@@ -22,6 +22,13 @@ public class SimpleArrayListTest {
     }
 
     @Test
+    public void whenArrayHas0Elements() {
+        List<Integer> list = new SimpleArrayList<>(0);
+        list.add(1);
+        Assert.assertTrue(list.iterator().hasNext());
+    }
+
+    @Test
     public void whenAddThenSizeIncrease() {
         Assert.assertEquals(3, list.size());
     }
@@ -124,5 +131,4 @@ public class SimpleArrayListTest {
         list.add(0);
         iterator.next();
     }
-
 }
