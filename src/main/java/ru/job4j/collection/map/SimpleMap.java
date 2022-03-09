@@ -36,16 +36,23 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexFor(int hash) {
-        return hash & capacity - 1;
+        return hash & (capacity - 1);
     }
 
+    /**
+     * В методе expand() индекс рассчитывается неверно
+     * -- int index = indexFor(entry.hashCode());
+     * -- надо рассчитывать индекс по ключу,
+     * а не по всему значению MapEntry<K, V> entry
+     * -- int index = indexFor(hash(entry.key.hashCode()));
+     */
     private void expand() {
         capacity *= 2;
         MapEntry<K, V>[] temp = new MapEntry[capacity];
         count = 0;
         for (MapEntry<K, V> entry : table) {
             if (entry != null) {
-                int index = indexFor(entry.hashCode());
+                int index = indexFor(hash(entry.key.hashCode()));
                 temp[index] = entry;
                 count++;
             }
