@@ -17,9 +17,9 @@ public class Analize {
         for (User currentUser : current) {
             User previousUser = userHashMap.remove(currentUser.getId());
             if (previousUser == null) {
-                info.setAdded(+1);
+                info.setAdded(info.getAdded() + 1);
             } else if (!previousUser.equals(currentUser)) {
-                info.setChanged(+1);
+                info.setChanged(info.getChanged() + 1);
             }
             info.setDeleted(userHashMap.size());
         }
