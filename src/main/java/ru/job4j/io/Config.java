@@ -18,7 +18,8 @@ public class Config {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 if (line.contains("=") && !line.startsWith("#")) {
                     String[] words = line.split("=", 2);
-                    if (words.length != 2 || words[0].equals("") || words[1].equals("")) {
+                    String empty = "";
+                    if (words.length != 2 || empty.equals(words[0]) || empty.equals(words[1])) {
                         throw new IllegalArgumentException("Invalid file format");
                     } else {
                         values.put(words[0], words[1]);
