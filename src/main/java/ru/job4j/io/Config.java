@@ -14,12 +14,11 @@ public class Config {
     }
 
     public void load() {
-        List<String> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
-                if (line.contains("=")) {
-                    String[] words = line.split("=");
-                    if (words.length != 2 || words[0].equals("")) {
+                if (line.contains("=") && !line.startsWith("#")) {
+                    String[] words = line.split("=", 2);
+                    if (words.length != 2 || words[0].equals("") || words[1].equals("")) {
                         throw new IllegalArgumentException("Invalid file format");
                     } else {
                         values.put(words[0], words[1]);

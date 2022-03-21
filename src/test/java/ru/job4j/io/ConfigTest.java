@@ -35,9 +35,32 @@ public class ConfigTest {
         assertThat(config.value("surname"), is("Arsentev"));
     }
 
+    @Test
+    public void whenPairContainsComment() {
+        String path = "./data/whenPairContainsComment.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("name"), is("Petr"));
+    }
+
+    @Test
+    public void whenPairDoubleSymbolAssignment() {
+        String path = "./data/whenPairDoubleSymbolAssignment.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("key"), is("dialect=2"));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void whenFileWriteWithErrorPattern() {
         String path = "./data/whenFileWriteWithErrorPattern.properties";
+        Config config = new Config(path);
+        config.load();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenPairNotKey() {
+        String path = "./data/whenPairNotKey.properties";
         Config config = new Config(path);
         config.load();
     }
