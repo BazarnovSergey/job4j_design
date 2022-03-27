@@ -17,7 +17,7 @@ public class ArgsName {
         return values.get(key);
     }
 
-    private boolean checkValidateArguments(String argument) {
+    private void checkValidateArguments(String argument) {
         if (argument.charAt(0) != '-') {
             throw new IllegalArgumentException("The parameter must start with the symbol \"-\"");
         }
@@ -37,7 +37,6 @@ public class ArgsName {
         }
         key = words[0];
         value = words[1];
-        return true;
     }
 
     private void parse(String[] args) {
