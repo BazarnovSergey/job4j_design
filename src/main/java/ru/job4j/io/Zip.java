@@ -25,6 +25,15 @@ public class Zip {
         }
     }
 
+    private static void checkValidateArguments(Path start, String exclude) {
+        if (!start.toFile().isDirectory()) {
+            throw new IllegalArgumentException("Path is not directory");
+        }
+        if (!exclude.startsWith(".")) {
+            throw new IllegalArgumentException("Exclude must start with character \".\"");
+        }
+    }
+
     public static void main(String[] args) {
         if (args.length != 3) {
             throw new IllegalArgumentException("Enter all arguments. Use pattern:"
@@ -37,13 +46,13 @@ public class Zip {
         Path start = Paths.get(argsName.get("d"));
         String exclude = argsName.get("e");
         File output = new File(argsName.get("o"));
+        checkValidateArguments(start, exclude);
         List<Path> filesWithoutExcluded = new ArrayList<>();
         try {
             filesWithoutExcluded = Search.search(start, p -> !p.toFile().getName().endsWith(exclude));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(filesWithoutExcluded);
         packFiles(filesWithoutExcluded, output);
     }
 }
