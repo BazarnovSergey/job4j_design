@@ -36,12 +36,10 @@ public class ConsoleChat {
             switch (question) {
                 case (OUT):
                     System.out.println("До встречи!");
-                    logs.add(question);
                     appRun = false;
                     break;
                 case (STOP):
                     System.out.println("Хорошо, я подожду.");
-                    logs.add(question);
                     botRun = false;
                     break;
                 case (CONTINUE):
