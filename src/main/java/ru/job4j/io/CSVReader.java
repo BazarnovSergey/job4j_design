@@ -31,7 +31,11 @@ public class CSVReader {
                 while (in.hasNext()) {
                     str.append(filterLine(in.nextLine(), delimiter, skipIndex));
                 }
-                writeToFile(str.toString(), argsName.get("out"));
+                if (argsName.get("out").contains("stdout")) {
+                    System.out.println(str.toString());
+                } else {
+                    writeToFile(str.toString(), argsName.get("out"));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -48,7 +52,8 @@ public class CSVReader {
                     + "Enter your arguments: -path -delimiter -out ");
         }
         if (new File(inputPath).isDirectory()) {
-            throw new IllegalArgumentException("First argument must be a directory");
+            throw new IllegalArgumentException(
+                    "The path is a directory. Specify the path to the file");
         }
         return true;
     }
@@ -73,6 +78,10 @@ public class CSVReader {
     }
 
     public static void main(String[] args) throws Exception {
+        if (args.length != 4) {
+            throw new IllegalArgumentException("Enter all arguments. Use pattern: "
+                    + "-path=file.csv -delimiter=\";\"  -out=stdout -filter=name,age");
+        }
         ArgsName argsName = ArgsName.of(args);
         CSVReader.handle(argsName);
     }
