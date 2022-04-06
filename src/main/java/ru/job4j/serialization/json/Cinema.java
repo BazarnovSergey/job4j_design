@@ -1,14 +1,27 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
+
+@XmlRootElement(name = "cinema")
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class Cinema {
 
-    private final String filmDirector;
-    private final boolean startSession;
-    private final Film film;
-    private final int duration;
-    private final double[] schedule;
+    @XmlAttribute
+    private boolean startSession;
+
+    @XmlAttribute
+    private int duration;
+    private Film film;
+    private String filmDirector;
+
+    @XmlElementWrapper(name = "schedules")
+    @XmlElement(name = "schedule")
+    private double[] schedule;
+
+    public Cinema() {
+    }
 
     public Cinema(String filmDirector, boolean startSession, Film film, int duration, double[] schedule) {
         this.filmDirector = filmDirector;
