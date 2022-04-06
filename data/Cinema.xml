@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 <Cinema>
-    <filmDirector>"Timothy Burton"</filmDirector>
+    <filmDirector>Timothy Burton</filmDirector>
     <startSession>"false"</startSession>
     <Film movieName="The Batman"/>
     <duration>"124"</duration>
