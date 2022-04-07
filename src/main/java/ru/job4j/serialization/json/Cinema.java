@@ -3,21 +3,14 @@ package ru.job4j.serialization.json;
 import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
-@XmlRootElement(name = "cinema")
-@XmlAccessorType(XmlAccessType.FIELD)
-
 public class Cinema {
 
-    @XmlAttribute
     private boolean startSession;
 
-    @XmlAttribute
     private int duration;
     private Film film;
     private String filmDirector;
 
-    @XmlElementWrapper(name = "schedules")
-    @XmlElement(name = "schedule")
     private double[] schedule;
 
     public Cinema() {
@@ -29,6 +22,26 @@ public class Cinema {
         this.film = film;
         this.duration = duration;
         this.schedule = schedule;
+    }
+
+    public boolean isStartSession() {
+        return startSession;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public String getFilmDirector() {
+        return filmDirector;
+    }
+
+    public double[] getSchedule() {
+        return schedule;
     }
 
     @Override
