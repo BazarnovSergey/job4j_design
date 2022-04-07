@@ -3,7 +3,7 @@
     <filmDirector>Timothy Burton</filmDirector>
     <startSession>false</startSession>
     <Film movieName="The Batman"/>
-    <duration>"124"</duration>
+    <duration>124</duration>
     <schedules>
         <shedule>16.45</shedule>
         <shedule>18.15</shedule>
