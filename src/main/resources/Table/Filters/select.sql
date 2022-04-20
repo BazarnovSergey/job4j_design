@@ -8,7 +8,8 @@ where name like '%мороженое%';
 select * from product 
 where expired_date < now();
 
-select * from product order by price desc limit 1;
+select * from product
+where price = (select max(price) from product);
 
 select t.name as имя_типа, count(*) as количество
 from product as p
