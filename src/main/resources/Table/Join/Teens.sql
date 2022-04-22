@@ -10,6 +10,6 @@ insert into teens(name,gender) values ('Мария','female');
 insert into teens(name,gender) values ('Кристина','female');
 insert into teens(name,gender) values ('Марина','female');
 
-select * from teens t1 
+select t1.name, t2.name from teens t1
 cross join teens t2
 where t1.gender != t2.gender;
