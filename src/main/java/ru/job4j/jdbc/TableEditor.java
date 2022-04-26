@@ -1,6 +1,7 @@
 package ru.job4j.jdbc;
 
-import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
@@ -25,35 +26,34 @@ public class TableEditor implements AutoCloseable {
         );
     }
 
-    public void createStatement(String operationSQL, String tableName) {
+    public void createStatement(String operationSQL, String tableName) throws Exception {
         try (Statement statement = connection.createStatement()) {
             String sql = String.format(operationSQL, tableName);
             statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        System.out.println(getTableScheme(connection, tableName));
     }
 
-    public void createTable(String tableName) {
+
+    public void createTable(String tableName) throws Exception {
         createStatement(String.format("create table if not exists %s();", tableName), tableName);
     }
 
-    public void dropTable(String tableName) {
+    public void dropTable(String tableName) throws Exception {
         createStatement(String.format("drop table if exists %s;", tableName), tableName);
     }
 
-    public void addColumn(String tableName, String columnName, String type) {
+    public void addColumn(String tableName, String columnName, String type) throws Exception {
         createStatement(String.format("alter table %s add column if not exists %s %s;",
                 tableName, columnName, type), tableName);
     }
 
-    public void dropColumn(String tableName, String columnName) {
+    public void dropColumn(String tableName, String columnName) throws Exception {
         createStatement(String.format("alter table %s drop column %s;",
                 tableName, columnName), tableName);
     }
 
-    public void renameColumn(String tableName, String columnName, String newColumnName) {
+    public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
         createStatement(String.format("alter table %s rename column %s to %s;",
                 tableName, columnName, newColumnName), tableName);
     }
@@ -86,14 +86,17 @@ public class TableEditor implements AutoCloseable {
 
     public static void main(String[] args) throws Exception {
         Properties properties = new Properties();
-        FileInputStream in = new FileInputStream("./src/main/resources/app.properties");
-        properties.load(in);
-        TableEditor tableEditor = new TableEditor(properties);
-        tableEditor.createTable("car");
-        tableEditor.addColumn("car", "color", "varchar(20)");
-        tableEditor.renameColumn("car", "color", "vin");
-        tableEditor.dropColumn("car", "vin");
-        tableEditor.dropTable("car");
-        tableEditor.close();
+        try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
+            properties.load(in);
+            try (TableEditor tableEditor = new TableEditor(properties)) {
+                tableEditor.createTable("car");
+                tableEditor.addColumn("car", "color", "varchar(20)");
+                tableEditor.renameColumn("car", "color", "vin");
+                tableEditor.dropColumn("car", "vin");
+                tableEditor.dropTable("car");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
