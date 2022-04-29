@@ -1,0 +1,7 @@
+Petr Arsentev;parsentev@yandex.ru;
+Ivan Ivanov;iivanov@gmail.com;
+Artem Petrov;petrov@mail.ru;
+Semen Egorov;segorov@gmail.com;
+Sergey Bazarnov;sergey_101@gmail.com;
+Andrey Grachev;grach@gmail.com;
+Pavel Gluchov;gluchov@mail.ru;
