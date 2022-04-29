@@ -30,7 +30,6 @@ public class TableEditor implements AutoCloseable {
             String sql = String.format(operationSQL, tableName);
             statement.execute(sql);
         }
-
     }
 
     public void createTable(String tableName) throws Exception {
