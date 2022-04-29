@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Properties;
 
 public class ImportDB {
@@ -26,9 +25,16 @@ public class ImportDB {
             rd.lines().
                     filter(s -> (!s.isEmpty()))
                     .map(s -> s.split(";"))
-                    .filter(s -> s.length > 1 && (!Objects.equals(s[0], "") && s[1].contains("@")))
+                    .filter(s -> {
+                        if (s.length == 2 && (!s[0].isBlank() && s[1].contains("@"))) {
+                            return true;
+                        } else {
+                            throw new IllegalArgumentException();
+                        }
+                    })
                     .forEach(s -> users.add(new User(s[0], s[1])));
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             e.printStackTrace();
         }
         return users;
@@ -59,6 +65,7 @@ public class ImportDB {
             this.name = name;
             this.email = email;
         }
+
     }
 
     public static void main(String[] args) throws Exception {
