@@ -23,16 +23,13 @@ public class ImportDB {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().
-                    filter(s -> (!s.isEmpty()))
-                    .map(s -> s.split(";"))
-                    .filter(s -> {
-                        if (s.length == 2 && (!s[0].isBlank() && s[1].contains("@"))) {
-                            return true;
-                        } else {
+                    forEach(line -> {
+                        String[] array = line.split(";", 2);
+                        if (array.length != 2 || array[0].isBlank() || array[1].isBlank()) {
                             throw new IllegalArgumentException();
                         }
-                    })
-                    .forEach(s -> users.add(new User(s[0], s[1])));
+                        users.add(new User(array[0], array[1]));
+                    });
         } catch (
                 IOException e) {
             e.printStackTrace();
