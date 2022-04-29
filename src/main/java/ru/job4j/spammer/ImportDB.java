@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 
 public class ImportDB {
@@ -19,19 +20,16 @@ public class ImportDB {
         this.dump = dump;
     }
 
-    public List<User> load() throws IOException {
+    public List<User> load() {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().
                     filter(s -> (!s.isEmpty()))
                     .map(s -> s.split(";"))
-                    .filter(s -> {
-                        if (s.length != 2) {
-                            throw new IllegalArgumentException();
-                        }
-                        return true;
-                    })
+                    .filter(s -> s.length > 1 && (!Objects.equals(s[0], "") && s[1].contains("@")))
                     .forEach(s -> users.add(new User(s[0], s[1])));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return users;
     }
