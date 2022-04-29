@@ -1,6 +1,5 @@
 package ru.job4j.jdbc;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
@@ -31,9 +30,8 @@ public class TableEditor implements AutoCloseable {
             String sql = String.format(operationSQL, tableName);
             statement.execute(sql);
         }
-        System.out.println(getTableScheme(connection, tableName));
-    }
 
+    }
 
     public void createTable(String tableName) throws Exception {
         createStatement(String.format("create table if not exists %s();", tableName), tableName);
@@ -86,17 +84,23 @@ public class TableEditor implements AutoCloseable {
 
     public static void main(String[] args) throws Exception {
         Properties properties = new Properties();
+        String tableName = "car";
+        String columnName = "color";
+        String newColumnName = "vin";
         try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
             properties.load(in);
             try (TableEditor tableEditor = new TableEditor(properties)) {
-                tableEditor.createTable("car");
-                tableEditor.addColumn("car", "color", "varchar(20)");
-                tableEditor.renameColumn("car", "color", "vin");
-                tableEditor.dropColumn("car", "vin");
-                tableEditor.dropTable("car");
+                tableEditor.createTable(tableName);
+                System.out.println(getTableScheme(tableEditor.connection, tableName));
+                tableEditor.addColumn(tableName, columnName, "varchar(20)");
+                System.out.println(getTableScheme(tableEditor.connection, tableName));
+                tableEditor.renameColumn(tableName, columnName, newColumnName);
+                System.out.println(getTableScheme(tableEditor.connection, tableName));
+                tableEditor.dropColumn(tableName, newColumnName);
+                System.out.println(getTableScheme(tableEditor.connection, tableName));
+                tableEditor.dropTable(tableName);
+                System.out.println(getTableScheme(tableEditor.connection, tableName));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
