@@ -19,8 +19,6 @@ join person as p
 on p.company_id = c.id
 group by c.name
 having count(p.company_id) =
-(select count(p.company_id) from company as c
-join person as p
-on p.company_id = c.id
-group by c.name
+(select count(company_id) from person
+group by company_id
 order by count(company_id) desc limit 1);
