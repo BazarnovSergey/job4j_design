@@ -23,5 +23,3 @@ public abstract class AbstractCache<K, V> {
 
     protected abstract V load(K key) throws FileNotFoundException;
 }
-
-
