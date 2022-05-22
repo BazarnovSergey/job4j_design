@@ -124,10 +124,10 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <finalName>Finder</finalName>
+              <finalName>EmulatorCache</finalName>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>ru.job4j.io.finder.Finder</mainClass>
+                  <mainClass>ru.job4j.cache.Emulator</mainClass>
                 </transformer>
               </transformers>
             </configuration>
