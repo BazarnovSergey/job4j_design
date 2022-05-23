@@ -1,6 +1,5 @@
 package ru.job4j.cache;
 
-import java.io.FileNotFoundException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,13 +12,14 @@ public abstract class AbstractCache<K, V> {
     }
 
     public V get(K key) {
-        V value = null;
-        SoftReference<V> reference = cache.get(key);
-        if (reference != null) {
-            value = reference.get();
+        V value = cache.getOrDefault(key, new SoftReference<>(null)).get();
+        if (value == null) {
+            value = load(key);
+            cache.put(key, new SoftReference<>(value));
+            put(key, value);
         }
         return value;
     }
 
-    protected abstract V load(K key) throws FileNotFoundException;
+    protected abstract V load(K key);
 }
