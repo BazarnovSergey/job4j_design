@@ -14,7 +14,7 @@ public class Emulator {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Укажите кэшируемую директорию:");
-        String directoryName = scanner.next();
+        String directoryName = scanner.nextLine();
         AbstractCache<String, String> cache = new DirFileCache(directoryName);
         boolean run = true;
         while (run) {
