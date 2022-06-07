@@ -12,7 +12,9 @@ public class ControlQuality {
 
     public void checkQuality(Food food) {
         for (Store store : stores) {
-            store.check(food);
+            if (store.check(food)) {
+                store.add(food);
+            }
         }
     }
 }
