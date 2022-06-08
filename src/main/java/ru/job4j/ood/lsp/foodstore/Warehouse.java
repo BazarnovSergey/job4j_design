@@ -3,6 +3,8 @@ package ru.job4j.ood.lsp.foodstore;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.job4j.ood.lsp.foodstore.PercentConstants.*;
+
 public class Warehouse implements Store {
     private List<Food> foodList = new ArrayList<>();
 
@@ -22,6 +24,6 @@ public class Warehouse implements Store {
 
     @Override
     public boolean check(Food food) {
-        return getPercentLifeExpired(food) < Food.PERCENT25;
+        return getPercentLifeExpired(food) < PERCENT_25;
     }
 }

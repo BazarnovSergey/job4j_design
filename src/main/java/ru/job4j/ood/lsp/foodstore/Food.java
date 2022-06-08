@@ -10,10 +10,6 @@ public class Food {
     private double price;
     private double discount;
 
-    final static double PERCENT25 = 25;
-    final static double PERCENT75 = 75;
-    final static double PERCENT100 = 100;
-
     public Food(String name, LocalDate expiryDate, LocalDate createDate, double price, double discount) {
         this.name = name;
         this.expiryDate = expiryDate;

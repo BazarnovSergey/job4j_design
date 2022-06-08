@@ -3,13 +3,18 @@ package ru.job4j.ood.lsp.foodstore;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.job4j.ood.lsp.foodstore.PercentConstants.*;
+
 public class Shop implements Store {
     private List<Food> foodList = new ArrayList<>();
 
     public boolean add(Food food) {
+        double percent = getPercentLifeExpired(food);
         boolean rsl = false;
         if (check(food)) {
-            food.setPrice(food.getPrice() - food.getDiscount());
+            if  (percent > PERCENT_75 && percent < PERCENT_100) {
+                food.setPrice(food.getPrice() - food.getDiscount());
+            }
             foodList.add(food);
             rsl = true;
         }
@@ -23,14 +28,7 @@ public class Shop implements Store {
 
     @Override
     public boolean check(Food food) {
-        boolean rsl = false;
         double percent = getPercentLifeExpired(food);
-        if (percent >= Food.PERCENT25 && percent <= Food.PERCENT75) {
-            rsl = true;
-        }
-        if (percent > Food.PERCENT75 && percent < Food.PERCENT100) {
-            rsl = true;
-        }
-        return rsl;
+        return percent >= PERCENT_25 && percent <= PERCENT_100;
     }
 }
