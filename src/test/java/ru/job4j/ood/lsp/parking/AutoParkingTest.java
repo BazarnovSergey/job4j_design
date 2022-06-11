@@ -18,8 +18,7 @@ public class AutoParkingTest {
     }
 
     @Test
-    public void
-    whenSecondTruckDoesNotHaveEnoughSpaceInCarParking() {
+    public void whenSecondTruckDoesNotHaveEnoughSpaceInCarParking() {
         AutoParking autoParking = new AutoParking(2, 1);
         Truck truck1 = new Truck(2);
         Truck truck2 = new Truck(3);

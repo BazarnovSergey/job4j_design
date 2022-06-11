@@ -12,7 +12,7 @@ public class AutoParking implements ParkingCar {
     public AutoParking(int passengerPlaces, int truckPlaces) {
         this.passengerPlaces = passengerPlaces;
         this.truckPlaces = truckPlaces;
-        this.parkingList = new ArrayList<>();
+        this.parkingList = new ArrayList<>(passengerPlaces + truckPlaces);
     }
 
     public int getPassengerPlaces() {
@@ -34,16 +34,15 @@ public class AutoParking implements ParkingCar {
         }
         boolean rzl = false;
         int carSize = car.getSize();
-        if (carSize == PassengerCar.CAR_SIZE && passengerPlaces > 0) {
+        if (carSize == PassengerCar.CAR_SIZE && passengerPlaces >= PassengerCar.CAR_SIZE) {
             parkingList.add(car);
             passengerPlaces--;
             rzl = true;
-        } else if (carSize > PassengerCar.CAR_SIZE && truckPlaces > 0) {
+        } else if (carSize > PassengerCar.CAR_SIZE && truckPlaces >= PassengerCar.CAR_SIZE) {
             parkingList.add(car);
             truckPlaces--;
             rzl = true;
-        } else if (carSize > PassengerCar.CAR_SIZE && truckPlaces == 0
-                && carSize <= passengerPlaces) {
+        } else if (carSize > PassengerCar.CAR_SIZE && carSize <= passengerPlaces) {
             parkingList.add(car);
             passengerPlaces -= carSize;
             rzl = true;
