@@ -5,17 +5,18 @@ import java.util.List;
 
 public class AutoParking implements ParkingCar {
 
-    private int carPlaces;
+    private int passengerPlaces;
     private int truckPlaces;
-    private List<Car> parkingList = new ArrayList<>();
+    private List<Car> parkingList;
 
-    public AutoParking(int carPlaces, int truckPlaces) {
-        this.carPlaces = carPlaces;
+    public AutoParking(int passengerPlaces, int truckPlaces) {
+        this.passengerPlaces = passengerPlaces;
         this.truckPlaces = truckPlaces;
+        this.parkingList = new ArrayList<>();
     }
 
-    public int getCarPlaces() {
-        return carPlaces;
+    public int getPassengerPlaces() {
+        return passengerPlaces;
     }
 
     public int getTruckPlaces() {
@@ -23,11 +24,30 @@ public class AutoParking implements ParkingCar {
     }
 
     public List<Car> getParkingList() {
-        return parkingList;
+        return new ArrayList<>(parkingList);
     }
 
     @Override
     public boolean parking(Car car) {
-        return false;
+        if (car == null) {
+            throw new IllegalArgumentException("No Car");
+        }
+        boolean rzl = false;
+        int carSize = car.getSize();
+        if (carSize == PassengerCar.CAR_SIZE && passengerPlaces > 0) {
+            parkingList.add(car);
+            passengerPlaces--;
+            rzl = true;
+        } else if (carSize > PassengerCar.CAR_SIZE && truckPlaces > 0) {
+            parkingList.add(car);
+            truckPlaces--;
+            rzl = true;
+        } else if (carSize > PassengerCar.CAR_SIZE && truckPlaces == 0
+                && carSize <= passengerPlaces) {
+            parkingList.add(car);
+            passengerPlaces -= carSize;
+            rzl = true;
+        }
+        return rzl;
     }
 }
