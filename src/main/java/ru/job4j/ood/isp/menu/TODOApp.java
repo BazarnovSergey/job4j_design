@@ -12,31 +12,33 @@ public class TODOApp {
         Scanner scanner = new Scanner(System.in);
         boolean run = true;
         while (run) {
-            System.out.println("Введите 1 что бы добавить новый пункт меню" + System.lineSeparator()
-                    + "Введите 2 что бы посмотреть меню" + System.lineSeparator()
-                    + "Введите 3 что бы выйти из программы");
+            System.out.println("Р’РІРµРґРёС‚Рµ 1 С‡С‚Рѕ Р±С‹ РґРѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ РїСѓРЅРєС‚ РјРµРЅСЋ"
+                    + System.lineSeparator()
+                    + "Р’РІРµРґРёС‚Рµ 2 С‡С‚Рѕ Р±С‹ РїРѕСЃРјРѕС‚СЂРµС‚СЊ РјРµРЅСЋ"
+                    + System.lineSeparator()
+                    + "Р’РІРµРґРёС‚Рµ 3 С‡С‚Рѕ Р±С‹ РІС‹Р№С‚Рё РёР· РїСЂРѕРіСЂР°РјРјС‹");
             int input = scanner.nextInt();
             scanner.nextLine();
             if (input == 1) {
-                System.out.println("Пункт меню является главным: да/нет ");
+                System.out.println("РџСѓРЅРєС‚ РјРµРЅСЋ СЏРІР»СЏРµС‚СЏ СЂРѕРґРёС‚РµР»СЊСЃРєРёРј: РґР°/РЅРµС‚ ");
                 String mainMenu = scanner.nextLine();
                 String parentName = Menu.ROOT;
-                if ("нет".equals(mainMenu)) {
-                    System.out.println("Введите название родительского пункта меню");
+                if ("РЅРµС‚".equals(mainMenu)) {
+                    System.out.println("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РїСѓРЅРєС‚Р° РјРµРЅСЋ");
                     parentName = scanner.nextLine();
                 }
-                System.out.println("Введите название пункта меню");
+                System.out.println("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РїСѓРЅРєС‚Р° РјРµРЅСЋ");
                 String childName = scanner.nextLine();
                 boolean result = menu.add(parentName, childName, STUB_ACTION);
                 if (!result) {
-                    throw new IllegalArgumentException("Отсутствует пункт с таким названием");
+                    throw new IllegalArgumentException("РџСѓРЅРєС‚ РѕС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ РІ РјРµРЅСЋ");
                 }
             } else if (input == 2) {
                 menuPrinter.print(menu);
             } else if (input == 3) {
                 run = false;
             } else {
-                System.out.println("Ошибка ввода");
+                System.out.println("РћС€РёР±РєР° РІРІРѕРґР°");
             }
         }
     }
