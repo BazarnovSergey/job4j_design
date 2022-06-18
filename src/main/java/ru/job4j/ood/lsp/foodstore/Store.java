@@ -12,6 +12,8 @@ public interface Store {
 
     boolean check(Food food);
 
+    void clearStorage();
+
     default double getPercentLifeExpired(Food food) {
         float expirationDate = (float) ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpiryDate());
         float timeFromDateOfManufacture = (float) ChronoUnit.DAYS.between(food.getCreateDate(), LocalDateTime.now());

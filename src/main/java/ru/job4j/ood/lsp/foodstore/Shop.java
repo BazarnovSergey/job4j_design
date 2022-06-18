@@ -31,4 +31,9 @@ public class Shop implements Store {
         double percent = getPercentLifeExpired(food);
         return percent >= PERCENT_25 && percent <= PERCENT_100;
     }
+
+    @Override
+    public void clearStorage() {
+        foodList.clear();
+    }
 }

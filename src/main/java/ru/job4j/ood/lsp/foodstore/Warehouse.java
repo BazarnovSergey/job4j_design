@@ -26,4 +26,9 @@ public class Warehouse implements Store {
     public boolean check(Food food) {
         return getPercentLifeExpired(food) < PERCENT_25;
     }
+
+    @Override
+    public void clearStorage() {
+        foodList.clear();
+    }
 }

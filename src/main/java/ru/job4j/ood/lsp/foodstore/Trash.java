@@ -26,4 +26,9 @@ public class Trash implements Store {
     public boolean check(Food food) {
         return getPercentLifeExpired(food) > PERCENT_100;
     }
+
+    @Override
+    public void clearStorage() {
+        foodList.clear();
+    }
 }
