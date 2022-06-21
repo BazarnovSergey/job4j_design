@@ -1,0 +1,8 @@
+class DefaultLogic - определяет стандартную логику игры
+class Moving - содержит метод для определенной возможности перемещения
+class UserInput - ввод данных пользователем
+class ConsoleOutput - вывод в консоль
+class Figure - 	описывает фигуры
+class Board - описывает игровое поле
+class Cell  - отображает состояние ячейки
+class Main - старт программы
